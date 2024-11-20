@@ -5,79 +5,243 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Recycling System</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset and Base Styles */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            box-sizing: border-box;
         }
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 400px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #eef2f7;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #007bff;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #555;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        /* Container Styling */
+        .container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 700px;
+            text-align: center;
+        }
+
+        
+
+        h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Form Styles */
+        form {
+            margin-top: 20px;
         }
 
         input[type="file"] {
-            margin-bottom: 20px;
+            display: none;
         }
 
-        button {
+        label {
             background-color: #007bff;
             color: white;
-            border: none;
-            padding: 10px 15px;
+            padding: 15px 25px;
             font-size: 16px;
-            cursor: pointer;
             border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.3s ease;
         }
 
-        button:hover {
+        label:hover {
             background-color: #0056b3;
         }
 
-        .result {
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .preview {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: left;
         }
 
         .result p {
             font-size: 18px;
             color: #555;
+            margin-bottom: 10px;
         }
 
         .result p span {
             font-weight: bold;
             color: #000;
         }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading div {
+            width: 15px;
+            height: 15px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading div:nth-child(2) {
+            animation-delay: -0.32s;
+        }
+
+        .loading div:nth-child(3) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Awareness Section */
+        .awareness {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Smart Recycling System</h1>
-        <form action="/predict" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required><br>
+        <p>
+            Did you know that recycling just one aluminum can saves enough energy to power a TV for three hours? 
+            Our smart system helps you identify recyclable materials to make recycling easier and more effective.
+        </p>
+    </header>
+
+    <div class="container">
+        <h2>Upload Your Image</h2>
+        <form id="recycling-form" action="/predict" method="POST" enctype="multipart/form-data">
+            <label for="file">Choose an Image</label>
+            <input type="file" name="file" id="file" accept="image/*" required>
             <button type="submit">Predict</button>
         </form>
-
-        {% if prediction %}
-        <div class="result">
-            <p>Class: <span>{{ prediction.class }}</span></p>
-            <p>Confidence: <span>{{ prediction.confidence }}</span></p>
-            <p>Recyclability: <span>{{ prediction.recyclability }}</span></p>
+        <div class="loading" id="loading">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        {% endif %}
+        <div class="preview" id="preview">
+            <!-- Uploaded image will be displayed here -->
+        </div>
+        <div class="result" id="result">
+            <!-- Result will be displayed here -->
+        </div>
     </div>
+
+    <div class="awareness">
+        Every small step counts in creating a sustainable future. Reduce, reuse, recycle! Together, we can make a difference.
+    </div>
+
+    <script>
+        const form = document.getElementById('recycling-form');
+        const fileInput = document.getElementById('file');
+        const preview = document.getElementById('preview');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.innerHTML = `
+                        <p>Uploaded Image:</p>
+                        <img src="${event.target.result}" alt="Uploaded Image">
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loading.style.display = 'flex';
+            result.innerHTML = '';
+
+            // Simulate an API call
+            setTimeout(() => {
+                loading.style.display = 'none';
+                result.innerHTML = `
+                    <p>Class: <span>Plastic Bottle</span></p>
+                    <p>Confidence: <span>95%</span></p>
+                    <p>Recyclability: <span>High</span></p>
+                `;
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
