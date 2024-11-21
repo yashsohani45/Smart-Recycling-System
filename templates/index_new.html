@@ -1,247 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Recycling System</title>
     <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background-color: #eef2f7;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        padding-top: 60px;
+        background: linear-gradient(to bottom right, #38bdf8, #0f172a);
+      }
+      nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #0f172a;
+        color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        /* Header Section */
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+      }
 
-        header h1 {
-            color: #007bff;
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s;
+      }
 
-        header p {
-            font-size: 18px;
-            color: #555;
-            max-width: 800px;
-            line-height: 1.6;
-        }
+      .nav-links a:hover {
+        color: #38bdf8;
+      }
 
-        /* Container Styling */
-        .container {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 700px;
-            text-align: center;
-        }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        color: white;
+      }
 
-        
+      header h1 {
+        font-size: 46px;
+        margin: 50px;
+      }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #007bff;
-            font-size: 28px;
-            font-weight: bold;
-        }
+      header p {
+        font-size: 22px;
+        max-width: 800px;
+        line-height: 1.6;
+      }
 
-        /* Form Styles */
-        form {
-            margin-top: 20px;
-        }
+      .container {
+        background: #eceaea;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 700px;
+        text-align: center;
+      }
 
-        input[type="file"] {
-            display: none;
-        }
+      h2 {
+        margin-bottom: 20px;
+        color: #007bff;
+        font-size: 28px;
+        font-weight: bold;
+      }
 
-        label {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 25px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
-            transition: background-color 0.3s ease;
-        }
+      input[type="file"] {
+        display: none;
+      }
 
-        label:hover {
-            background-color: #0056b3;
-        }
+      label {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+      }
 
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
+      label:hover {
+        background-color: #0056b3;
+      }
 
-        button:hover {
-            background-color: #218838;
-        }
+      button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
 
-        .preview {
-            margin-top: 25px;
-            text-align: center;
-        }
+      button:hover {
+        background-color: #218838;
+      }
 
-        .preview img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
+      .preview {
+        margin-top: 25px;
+        text-align: center;
+      }
 
-        .result {
-            margin-top: 30px;
-            text-align: left;
-        }
+      .preview img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+      }
 
-        .result p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 10px;
-        }
+      .result {
+        margin-top: 30px;
+        text-align: left;
+      }
 
-        .result p span {
-            font-weight: bold;
-            color: #000;
-        }
+      .result p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+      }
 
-        /* Loading Animation */
-        .loading {
-            display: none;
-            margin-top: 20px;
-        }
+      .result p span {
+        font-weight: bold;
+        color: #000;
+      }
 
-        .loading div {
-            width: 15px;
-            height: 15px;
-            background-color: #007bff;
-            border-radius: 50%;
-            display: inline-block;
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
+      .loading {
+        display: none;
+        margin-top: 20px;
+      }
 
-        .loading div:nth-child(2) {
-            animation-delay: -0.32s;
-        }
+      .loading div {
+        width: 15px;
+        height: 15px;
+        background-color: #007bff;
+        border-radius: 50%;
+        display: inline-block;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
 
-        .loading div:nth-child(3) {
-            animation-delay: -0.16s;
-        }
+      .loading div:nth-child(2) {
+        animation-delay: -0.32s;
+      }
 
-        @keyframes bounce {
-            0%, 80%, 100% {
-                transform: scale(0);
-            }
-            40% {
-                transform: scale(1);
-            }
-        }
+      .loading div:nth-child(3) {
+        animation-delay: -0.16s;
+      }
 
-        /* Awareness Section */
-        .awareness {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            margin-top: 40px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 18px;
-            line-height: 1.8;
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
         }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      .awareness {
+        color: white;
+        padding: 20px;
+        margin-top: 40px;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.8;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Smart Recycling System</h1>
-        <p>
-            Did you know that recycling just one aluminum can saves enough energy to power a TV for three hours? 
-            Our smart system helps you identify recyclable materials to make recycling easier and more effective.
-        </p>
+      <nav>
+        <div class="logo">Smart Recycling System</div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <h1>Smart Recycling System</h1>
+      <p>
+        Did you know that recycling just one aluminum can saves enough energy to
+        power a TV for three hours? Our smart system helps you identify
+        recyclable materials to make recycling easier and more effective.
+      </p>
     </header>
 
     <div class="container">
-        <h2>Upload Your Image</h2>
-        <form id="recycling-form" action="/predict" method="POST" enctype="multipart/form-data">
+        
+        <form id="uploadForm" action="/predict" method="POST" enctype="multipart/form-data">
             <label for="file">Choose an Image</label>
             <input type="file" name="file" id="file" accept="image/*" required>
             <button type="submit">Predict</button>
         </form>
-        <div class="loading" id="loading">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+
         <div class="preview" id="preview">
-            <!-- Uploaded image will be displayed here -->
+            <h2>Image Preview:</h2>
+            <img id="previewImage" src="#" alt="Image Preview" style="display: none;">
         </div>
-        <div class="result" id="result">
-            <!-- Result will be displayed here -->
+
+        <div class="result" id="result" style="display: {% if prediction %}block{% else %}none{% endif %};">
+            <h2>Prediction Result</h2>
+            <p><strong>Class:</strong> <span id="class">{{ prediction.class if prediction else '' }}</span></p>
+            <p><strong>Confidence:</strong> <span id="confidence">{{ prediction.confidence if prediction else '' }}</span>%</p>
+            <p><strong>Recyclability:</strong> <span id="recyclability">{{ prediction.recyclability if prediction else '' }}</span></p>
         </div>
+        
+
+        {% if error %}
+        <div class="error">
+            <p>Error: {{ error }}</p>
+        </div>
+        {% endif %}
     </div>
 
+
     <div class="awareness">
-        Every small step counts in creating a sustainable future. Reduce, reuse, recycle! Together, we can make a difference.
+      Every small step counts in creating a sustainable future. Reduce, reuse,
+      recycle! Together, we can make a difference.
     </div>
 
     <script>
-        const form = document.getElementById('recycling-form');
         const fileInput = document.getElementById('file');
-        const preview = document.getElementById('preview');
-        const loading = document.getElementById('loading');
-        const result = document.getElementById('result');
+        const previewImage = document.getElementById('previewImage');
+        const resultContainer = document.getElementById('result');
 
+        // Display uploaded image as a preview
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    preview.innerHTML = `
-                        <p>Uploaded Image:</p>
-                        <img src="${event.target.result}" alt="Uploaded Image">
-                    `;
+                    previewImage.src = event.target.result;
+                    previewImage.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            loading.style.display = 'flex';
-            result.innerHTML = '';
-
-            // Simulate an API call
-            setTimeout(() => {
-                loading.style.display = 'none';
-                result.innerHTML = `
-                    <p>Class: <span>Plastic Bottle</span></p>
-                    <p>Confidence: <span>95%</span></p>
-                    <p>Recyclability: <span>High</span></p>
-                `;
-            }, 3000);
+        // Hide results when a new image is selected
+        fileInput.addEventListener('change', () => {
+            resultContainer.classList.remove('active');
         });
+
+        // Show results after submission
+        {% if prediction %}
+        document.getElementById('class').innerText = "{{ prediction.class }}";
+        document.getElementById('confidence').innerText = "{{ prediction.confidence }}";
+        document.getElementById('recyclability').innerText = "{{ prediction.recyclability }}";
+        resultContainer.classList.add('active');
+        {% endif %}
     </script>
-</body>
+
+  </body>
 </html>
