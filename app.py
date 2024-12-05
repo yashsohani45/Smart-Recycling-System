@@ -6,6 +6,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
 from datetime import datetime
+from sqlalchemy import or_
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Used for session management
@@ -168,9 +169,39 @@ def dashboard():
         return redirect('/login')
 
     user_id = session['user_id']
-    uploads = Upload.query.filter_by(user_id=user_id).order_by(Upload.timestamp.desc()).all()
-    return render_template('dashboard.html', uploads=uploads, username=session.get('username'))
+    
+    # Get search and filter inputs from the query parameters
+    search_query = request.args.get('search', '').strip()
+    filter_by_recyclability = request.args.get('filter', '')
 
+    # Start with all uploads for the user
+    query = Upload.query.filter_by(user_id=user_id)
+
+    # Apply search if a search query is provided
+    if search_query:
+        query = query.filter(
+            or_(
+                Upload.predicted_class.ilike(f"%{search_query}%"),
+                Upload.filename.ilike(f"%{search_query}%"),
+                Upload.recyclability.ilike(f"%{search_query}%"),
+                Upload.bin_classification.ilike(f"%{search_query}%")
+            )
+        )
+
+    # Apply filter if a recyclability filter is provided
+    if filter_by_recyclability:
+        query = query.filter_by(recyclability=filter_by_recyclability)
+
+    # Fetch the filtered and/or searched results
+    uploads = query.order_by(Upload.timestamp.desc()).all()
+
+    return render_template(
+        'dashboard.html', 
+        uploads=uploads, 
+        username=session.get('username'),
+        search_query=search_query,
+        filter_by_recyclability=filter_by_recyclability
+    )
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
