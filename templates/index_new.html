@@ -200,10 +200,11 @@
         <ul class="nav-links">
           <li><a href="landingpage">Home</a></li>
           <li><a href="#">About</a></li>
-          <li><a href="register.html">Register</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="register">Register</a></li>
+          <li><a href="login">Login</a></li>
           {% if session.username %}
           <li>Welcome, {{ session.username }}!</li>
+          <li><a href="dashboard">Go to Dashboard</a></li>
           <li><a href="/logout">Logout</a></li>
           {% endif %}
         </ul>
@@ -230,12 +231,13 @@
         </div>
 
         <div class="result" id="result" style="display: {% if prediction %}block{% else %}none{% endif %};">
-            <h2>Prediction Result</h2>
-            <p><strong>Class:</strong> <span id="class">{{ prediction.class if prediction else '' }}</span></p>
-            <p><strong>Confidence:</strong> <span id="confidence">{{ prediction.confidence if prediction else '' }}</span>%</p>
-            <p><strong>Recyclability:</strong> <span id="recyclability">{{ prediction.recyclability if prediction else '' }}</span></p>
-        </div>
-        
+          <h2>Prediction Result</h2>
+          <p><strong>Class:</strong> <span id="class">{{ prediction.class if prediction else '' }}</span></p>
+          <p><strong>Confidence:</strong> <span id="confidence">{{ prediction.confidence if prediction else '' }}</span>%</p>
+          <p><strong>Recyclability:</strong> <span id="recyclability">{{ prediction.recyclability if prediction else '' }}</span></p>
+          <p><strong>Bin:</strong> <span id="bin">{{ prediction.bin if prediction else '' }}</span></p>
+      </div>
+      
 
         {% if error %}
         <div class="error">
