@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Welcome, {{ username }}</h1>
+    <h2>Your Uploads</h2>
+
+    {% if uploads %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Predicted Class</th>
+                    <th>Confidence</th>
+                    <th>Recyclability</th>
+                    <th>Bin Classification</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for upload in uploads %}
+                    <tr>
+                        <td>
+                            <img src="{{ url_for('static', filename='uploads/' + upload.filename) }}" alt="Uploaded Image" style="width:100px; height:auto;">
+                        </td>
+                        <td>{{ upload.predicted_class }}</td>
+                        <td>{{ upload.confidence }}</td>
+                        <td>{{ upload.recyclability }}</td>
+                        <td>{{ upload.bin_classification }}</td>
+                        <td>{{ upload.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not uploaded any files yet.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">Back to Home</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
