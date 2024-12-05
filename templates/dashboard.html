@@ -109,11 +109,37 @@ p {
     margin-top: 20px;
 }
 
+.search-filter-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .search-filter-form .form-control {
+        flex: 1;
+    }
+
 </style>
 <body>
     
     <h1>Welcome, {{ username }}</h1>
     <h2>Your Uploads</h2>
+
+    <form method="GET" action="{{ url_for('dashboard') }}" class="search-filter-form">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Search by class, file, etc." 
+            value="{{ search_query }}" 
+            class="form-control"
+        >
+        <select name="filter" class="form-control">
+            <option value="" {% if not filter_by_recyclability %}selected{% endif %}>All</option>
+            <option value="recyclable" {% if filter_by_recyclability == 'recyclable' %}selected{% endif %}>Recyclable</option>
+            <option value="non-recyclable" {% if filter_by_recyclability == 'non-recyclable' %}selected{% endif %}>Non-Recyclable</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+    
 
     {% if uploads %}
         <table>
