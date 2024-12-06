@@ -198,8 +198,7 @@
       <nav>
         <div class="logo">Smart Recycling System</div>
         <ul class="nav-links">
-          <li><a href="landingpage">Home</a></li>
-          <li><a href="#">About</a></li>
+          <li><a href="/about">About</a></li>
           <li><a href="register">Register</a></li>
           <li><a href="login">Login</a></li>
           {% if session.username %}
@@ -225,18 +224,26 @@
             <button type="submit">Predict</button>
         </form>
 
-        <div class="preview" id="preview">
-            <h2>Image Preview:</h2>
-            <img id="previewImage" src="#" alt="Image Preview" style="display: none;">
+        <div class="preview" id="preview" style="display: {% if prediction %}none{% else %}block{% endif %};">
+          <h2>Image Preview:</h2>
+          <img id="previewImage" src="#" alt="Image Preview" style="display: none;" />
         </div>
-
+        
         <div class="result" id="result" style="display: {% if prediction %}block{% else %}none{% endif %};">
-          <h2>Prediction Result</h2>
-          <p><strong>Class:</strong> <span id="class">{{ prediction.class if prediction else '' }}</span></p>
-          <p><strong>Confidence:</strong> <span id="confidence">{{ prediction.confidence if prediction else '' }}</span>%</p>
-          <p><strong>Recyclability:</strong> <span id="recyclability">{{ prediction.recyclability if prediction else '' }}</span></p>
-          <p><strong>Bin:</strong> <span id="bin">{{ prediction.bin if prediction else '' }}</span></p>
-      </div>
+          <h2 style="text-align: center;">Prediction Result:</h2>
+          <div class="prediction-output" style="text-align: center; margin-top: 20px;">
+            {% if uploaded_image %}
+            <img src="{{ uploaded_image }}" alt="Uploaded Image" style="max-width: 100%; border-radius: 8px; margin-bottom: 20px;" />
+            {% endif %}
+            <p><strong>Class:</strong> <span id="class">{{ prediction.class if prediction else '' }}</span></p>
+            <p><strong>Confidence:</strong> <span id="confidence">{{ prediction.confidence if prediction else '' }}</span>%</p>
+            <p><strong>Recyclability:</strong> <span id="recyclability">{{ prediction.recyclability if prediction else '' }}</span></p>
+            <p><strong>Bin:</strong> <span id="bin">{{ prediction.bin if prediction else '' }}</span></p>
+          </div>
+        </div>
+        
+        
+        
       
 
         {% if error %}
