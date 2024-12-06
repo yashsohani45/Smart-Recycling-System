@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Smart Recycling System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        
+        /* Header styles */
+        header {
+            background: #2d6187;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding-right: 20px;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background-color: #4a90e2;
+        }
+
+        /* Main content styles */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            color: #2d6187;
+        }
+
+        p, ul, ol {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: disc;
+            padding-left: 40px;
+        }
+
+        ol {
+            list-style: decimal;
+            padding-left: 40px;
+        }
+
+        ul li ul {
+            list-style: circle;
+            padding-left: 20px;
+        }
+
+        /* Buttons */
+        a.btn {
+            display: inline-block;
+            background: #2d6187;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        a.btn:hover {
+            background: #4a90e2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+
+            .nav-links li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Smart Recycling System</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="register">Register</a></li>
+                <li><a href="login">Login</a></li>
+                {% if session.username %}
+                <li>Welcome, {{ session.username }}!</li>
+                <li><a href="dashboard">Go to Dashboard</a></li>
+                <li><a href="/logout">Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>About the Smart Recycling System</h1>
+        <p>
+            The Smart Recycling System is designed to help users identify recyclable and non-recyclable waste items, 
+            ensuring proper waste management. The system uses a machine learning model to classify uploaded images 
+            of waste items into categories and provides guidance on their recyclability and the appropriate disposal bin.
+        </p>
+
+        <h2>How It Works</h2>
+        <ol>
+            <li>You upload an image of a waste item through the system.</li>
+            <li>The system uses a trained machine learning model to predict the type of waste (e.g., plastic, glass, metal).</li>
+            <li>It provides the following details:
+                <ul>
+                    <li><strong>Predicted Class:</strong> The type of waste (e.g., plastic, metal).</li>
+                    <li><strong>Confidence:</strong> The model's confidence in its prediction, expressed as a percentage.</li>
+                    <li><strong>Recyclability:</strong> Whether the waste is recyclable or non-recyclable.</li>
+                    <li><strong>Bin Classification:</strong> The type of bin you should use to dispose of the item.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>Explanation of Terms</h2>
+        <ul>
+            <li><strong>Confidence:</strong> A numerical value (0-100%) that indicates how sure the model is about its prediction.</li>
+            <li><strong>Recyclability:</strong> Indicates whether the item can be recycled. For example:
+                <ul>
+                    <li>Recyclable items: Glass, paper, metal, cardboard, etc.</li>
+                    <li>Non-recyclable items: Medical waste, e-waste, etc.</li>
+                </ul>
+            </li>
+            <li><strong>Bin Classification:</strong> Guidance on which disposal bin to use based on the waste category.</li>
+        </ul>
+
+        <h2>Bin Classifications</h2>
+        <ul>
+            <li><strong>Blue Bin (Dry Waste):</strong> For items like paper, cardboard, and metal.</li>
+            <li><strong>Green Bin (Reusable Waste):</strong> For items like plastic and glass.</li>
+            <li><strong>Red Bin (Hazardous Waste):</strong> For items like medical waste and e-waste.</li>
+        </ul>
+
+        <h2>Benefits of Proper Waste Management</h2>
+        <p>
+            Proper segregation of waste helps reduce landfill waste, improves recycling efficiency, and minimizes environmental pollution. 
+            By using this system, you are contributing to a cleaner, greener planet.
+        </p>
+        <a href="/" class="btn">Back to Home</a>
+    </div>
+</body>
+</html>
