@@ -260,27 +260,28 @@
     </div>
 
     <script>
-        const fileInput = document.getElementById('file');
-        const previewImage = document.getElementById('previewImage');
-        const resultContainer = document.getElementById('result');
+ const fileInput = document.getElementById('file');
+const previewImage = document.getElementById('previewImage');
+const previewContainer = document.getElementById('preview');
+const resultContainer = document.getElementById('result');
 
-        // Display uploaded image as a preview
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    previewImage.src = event.target.result;
-                    previewImage.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+// Display uploaded image as a preview
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      previewImage.src = event.target.result;
+      previewImage.style.display = 'block'; // Show the preview image
+      previewContainer.style.display = 'block'; // Show the preview container
+    };
+    reader.readAsDataURL(file);
+  }
 
-        // Hide results when a new image is selected
-        fileInput.addEventListener('change', () => {
-            resultContainer.classList.remove('active');
-        });
+  // Hide results when a new image is selected
+  resultContainer.style.display = 'none';
+});
+
 
         // Show results after submission
         {% if prediction %}
