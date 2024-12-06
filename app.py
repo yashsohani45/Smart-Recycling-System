@@ -63,6 +63,11 @@ class Upload(db.Model):
 def index():
     return render_template('index_new.html', username=session.get('username'))
 
+# About route
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 # Register route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -74,7 +79,6 @@ def register():
             flash('Username already exists. Please choose a different one.', 'error')
             return redirect('/register')
 
-        # Corrected hashing method
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
@@ -83,7 +87,6 @@ def register():
         return redirect('/login')
 
     return render_template('register.html')
-
 
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
@@ -169,15 +172,12 @@ def dashboard():
         return redirect('/login')
 
     user_id = session['user_id']
-    
-    # Get search and filter inputs from the query parameters
+
     search_query = request.args.get('search', '').strip()
     filter_by_recyclability = request.args.get('filter', '')
 
-    # Start with all uploads for the user
     query = Upload.query.filter_by(user_id=user_id)
 
-    # Apply search if a search query is provided
     if search_query:
         query = query.filter(
             or_(
@@ -188,7 +188,7 @@ def dashboard():
             )
         )
 
-    # Apply filter if a recyclability filter is provided
+     # Apply filter if a recyclability filter is provided
     if filter_by_recyclability:
         query = query.filter_by(recyclability=filter_by_recyclability)
 
@@ -196,16 +196,16 @@ def dashboard():
     uploads = query.order_by(Upload.timestamp.desc()).all()
 
     return render_template(
-        'dashboard.html', 
-        uploads=uploads, 
+        'dashboard.html',
+        uploads=uploads,
         username=session.get('username'),
         search_query=search_query,
         filter_by_recyclability=filter_by_recyclability
     )
+
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
-    # Create the application context and initialize the database
     with app.app_context():
         db.create_all()
     
