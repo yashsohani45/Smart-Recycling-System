@@ -1,131 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: linear-gradient(to bottom right, #38bdf8, #0f172a);
-        font-family: Arial, sans-serif;
-      }
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-      nav {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        background-color: #0f172a;
-        color: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
+        body {
+            background: linear-gradient(to bottom right, #38bdf8, #0f172a);
+            color: #fff;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
-      .nav-links {
-        list-style: none;
-        display: flex;
-        gap: 15px;
-      }
+        /* Navigation Bar Styles */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0f172a;
+            padding: 15px 0;
+            z-index: 1000;
+        }
 
-      .nav-links a {
-        text-decoration: none;
-        color: #fff;
-        transition: color 0.3s;
-      }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+        }
 
-      .nav-links a:hover {
-        color: #38bdf8;
-      }
+        .nav-links li {
+            margin: 0 15px;
+        }
 
-      .register-container {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
-      }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
 
-      h1 {
-        margin-bottom: 20px;
-        color: #0f172a;
-      }
+        .nav-links a:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
 
-      label {
-        display: block;
-        font-weight: bold;
-        color: #0f172a;
-        margin-bottom: 5px;
-        text-align: left;
-      }
+        /* Register Form Styles */
+        .register-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            margin-top: 120px; /* Added margin to offset the fixed nav */
+        }
 
-      input[type="text"],
-      input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
+        h1 {
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
 
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #38bdf8;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-      }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #0f172a;
+            margin-bottom: 5px;
+            text-align: left;
+        }
 
-      button:hover {
-        background-color: #0f172a;
-      }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #38bdf8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0f172a;
+        }
+
+        /* Loading Spinner */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .register-container {
+                margin-top: 80px; /* Reduced margin on smaller screens */
+                padding: 15px;
+            }
+        }
+
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <nav>
-      <div class="logo">Smart Recycling System</div>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="register">Register</a></li>
-        <li><a href="login">Login</a></li>
-        {% if session.username %}
-        <li>Welcome, {{ session.username }}!</li>
-        <li><a href="dashboard">Go to Dashboard</a></li>
-        <li><a href="/logout">Logout</a></li>
-        {% endif %}
-      </ul>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="login">Login</a></li>
+        </ul>
     </nav>
+
+    <!-- Register Form -->
     <div class="register-container">
-      <h1>Register</h1>
-      <form action="/register" method="POST">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-        <button type="submit">Register</button>
-      </form>
+        <h1>Register</h1>
+        <form action="/register" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            
+            <button type="submit">Register</button>
+        </form>
     </div>
-  </body>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+   
+    <script>
+        const form = document.querySelector('form');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        form.addEventListener('submit', () => {
+            loadingOverlay.classList.add('active');
+        });
+    </script>
+    
+</body>
 </html>
