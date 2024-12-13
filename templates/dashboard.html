@@ -5,125 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General body and layout styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Header styles */
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        /* Search and Filter form styles */
+        .search-filter-form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        .search-filter-form .form-control {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 200px;
+            max-width: 100%;
+        }
+
+        .search-filter-form button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-filter-form button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Table styles */
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+        }
+
+        table td {
+            background-color: #f9f9f9;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table img {
+            border-radius: 8px;
+            max-width: 100px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Links styles */
+        a {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        /* No uploads message styles */
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Responsive design for small screens */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            table th, table td {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .search-filter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-filter-form .form-control {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search-filter-form button {
+                width: 100%;
+            }
+
+            a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+    </style>
 </head>
-<style>
-    /* General body and layout styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-/* Header styles */
-h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 20px;
-}
-
-h2 {
-    text-align: center;
-    color: #3498db;
-    margin-bottom: 20px;
-}
-
-/* Table styles */
-table {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-table th, table td {
-    padding: 12px;
-    text-align: left;
-}
-
-table th {
-    background-color: #3498db;
-    color: white;
-    font-size: 16px;
-}
-
-table td {
-    background-color: #f9f9f9;
-    font-size: 14px;
-    border-bottom: 1px solid #ddd;
-}
-
-table img {
-    border-radius: 8px;
-    max-width: 100px;
-    height: auto;
-    object-fit: cover;
-}
-
-/* Links styles */
-a {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    text-align: center;
-    transition: background-color 0.3s;
-}
-
-a:hover {
-    background-color: #2980b9;
-}
-
-/* Responsive design for small screens */
-@media (max-width: 768px) {
-    table {
-        width: 100%;
-        margin: 20px 0;
-    }
-
-    table th, table td {
-        font-size: 12px;
-        padding: 8px;
-    }
-
-    a {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* No uploads message styles */
-p {
-    text-align: center;
-    font-size: 16px;
-    color: #e74c3c;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.search-filter-form {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-    .search-filter-form .form-control {
-        flex: 1;
-    }
-
-</style>
 <body>
-    
+    <!-- Navigation Links -->
+    <div class="links-container">
+        <a href="{{ url_for('index') }}">Back to Home</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
     <h1>Welcome, {{ username }}</h1>
     <h2>Your Uploads</h2>
 
+    <!-- Search and Filter Form -->
     <form method="GET" action="{{ url_for('dashboard') }}" class="search-filter-form">
         <input 
             type="text" 
@@ -137,10 +179,10 @@ p {
             <option value="recyclable" {% if filter_by_recyclability == 'recyclable' %}selected{% endif %}>Recyclable</option>
             <option value="non-recyclable" {% if filter_by_recyclability == 'non-recyclable' %}selected{% endif %}>Non-Recyclable</option>
         </select>
-        <button type="submit" class="btn btn-primary">Apply</button>
+        <button type="submit">Apply</button>
     </form>
-    
 
+    <!-- Display table if there are uploads -->
     {% if uploads %}
         <table>
             <thead>
@@ -157,7 +199,7 @@ p {
                 {% for upload in uploads %}
                     <tr>
                         <td>
-                            <img src="{{ url_for('static', filename='uploads/' + upload.filename) }}" alt="Uploaded Image" style="width:100px; height:auto;">
+                            <img src="{{ url_for('static', filename='uploads/' + upload.filename) }}" alt="Uploaded Image">
                         </td>
                         <td>{{ upload.predicted_class }}</td>
                         <td>{{ upload.confidence }}</td>
@@ -172,7 +214,7 @@ p {
         <p>You have not uploaded any files yet.</p>
     {% endif %}
 
-    <a href="{{ url_for('index') }}">Back to Home</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    
+
 </body>
 </html>
