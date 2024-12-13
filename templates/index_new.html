@@ -234,20 +234,26 @@
         <div class="logo">Smart Recycling System</div>
         <ul class="nav-links">
           <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact Us</a></li>
           <li><a href="register">Register</a></li>
           <li><a href="login">Login</a></li>
+          <li><a href="/recycling_centers">List of Recycling Centres Near you</a></li>
           {% if session.username %}
           <li>Welcome, {{ session.username }}!</li>
           <li><a href="dashboard">Go to Dashboard</a></li>
           <li><a href="/logout">Logout</a></li>
           {% endif %}
+          {% if session.get('is_admin', False) %}
+          <li><a href="/admin">Admin Dashboard</a></li>
+          {% endif %}
+
         </ul>
       </nav>
       <h1>Smart Recycling System</h1>
       <p>
-        Did you know that recycling just one aluminum can saves enough energy to
-        power a TV for three hours? Our smart system helps you identify
-        recyclable materials to make recycling easier and more effective.
+        Welcome to the Smart Recycling System! To help make recycling easier and more effective,
+        simply upload an image of an item you'd like to recycle. Our system will predict its recyclability 
+        and tell you which bin to place it in. Let's make recycling smarter together! 
       </p>
     </header>
 
@@ -259,18 +265,10 @@
             <button type="submit">Predict</button>
         </form>
 
-        <div class="loading" id="loading">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        
-
         <div class="preview" id="preview" style="display: {% if prediction %}none{% else %}block{% endif %};">
           <h2>Image Preview:</h2>
           <img id="previewImage" src="#" alt="Image Preview" style="display: none;" />
         </div>
-        
         
         <div class="result" id="result" style="display: {% if prediction %}block{% else %}none{% endif %};">
           <h2 style="text-align: center;">Prediction Result:</h2>
@@ -301,21 +299,16 @@
       Every small step counts in creating a sustainable future. Reduce, reuse,
       recycle! Together, we can make a difference.
     </div>
+<footer>
+  <li><a href="/create_admin">Create Admin</a></li>
+  <li><a href="/admin_login">Admin Login</a></li>
 
+</footer>
     <script>
  const fileInput = document.getElementById('file');
 const previewImage = document.getElementById('previewImage');
 const previewContainer = document.getElementById('preview');
 const resultContainer = document.getElementById('result');
-const uploadForm = document.getElementById('uploadForm');
-const loading = document.getElementById('loading');
-
-uploadForm.addEventListener('submit', (e) => {
-  loading.style.display = 'block'; // Show loading animation
-  previewContainer.style.display = 'none'; // Hide preview container
-  resultContainer.style.display = 'none'; // Hide result container
-});
-
 
 // Display uploaded image as a preview
 fileInput.addEventListener('change', (e) => {
