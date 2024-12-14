@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Smart Recycling System</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        padding-top: 60px;
+        background: linear-gradient(to bottom right, #38bdf8, #0f172a);
+      }
+
+      nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #0f172a;
+        color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #38bdf8;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 46px;
+        margin: 50px;
+      }
+
+      header p {
+        font-size: 22px;
+        max-width: 800px;
+        line-height: 1.6;
+      }
+
+      .container {
+        background: #eceaea;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 700px;
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #007bff;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      .success {
+        font-size: 22px;
+        margin-top: 20px;
+        color: #4caf50;
+      }
+
+      .error {
+        margin-top: 20px;
+        color: #ff4d4d;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      body > * {
+        flex: 1;
+      }
+
+      footer {
+        width: 100vw;
+        background-color: #0f172a;
+        color: #fff;
+        text-align: center;
+        padding: 20px 10px;
+        margin-top: auto;
+      }
+
+      footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      footer li {
+        display: inline;
+      }
+
+      footer a {
+        color: #38bdf8;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 16px;
+      }
+
+      footer a:hover {
+        color: #00c4ff;
+      }
+
+      footer p {
+        font-size: 14px;
+        margin: 10px 0 0;
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">Smart Recycling System</div>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+
+      <h1>Contact Us</h1>
+      <p>
+        Have any questions or feedback? Feel free to reach out to us! We're here
+        to help you make recycling smarter.
+      </p>
+    </header>
+
+    <div class="container">
+      <h2>Contact Form</h2>
+      <form action="/submit_contact" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea
+          name="message"
+          rows="4"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="success" id="successMessage" style="display: none">
+        Thank you for reaching out! We'll get back to you soon.
+      </div>
+      <div class="error" id="errorMessage" style="display: none">
+        Oops! Something went wrong. Please try again later.
+      </div>
+    </div>
+
+    <footer>
+      <ul>
+        <li>
+          <a href="/recycling_centers">List of Recycling Centres Near You</a>
+        </li>
+        <li><a href="/privacy_policy">Privacy Policy</a></li>
+        <li><a href="/terms_of_service">Terms of Service</a></li>
+      </ul>
+      <p>© 2024 Smart Recycling System. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        document.getElementById("successMessage").style.display = "block";
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
