@@ -192,7 +192,7 @@
         line-height: 1.8;
       }
       .loading {
-  display: none; /* Hidden by default */
+  display: none; 
   margin-top: 20px;
   text-align: center;
 }
@@ -215,6 +215,124 @@
   animation-delay: -0.16s;
 }
 
+/* Dropdown Styling */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  padding: 5px 10px;
+  transition: color 0.3s;
+}
+
+.dropdown-toggle:hover {
+  color: #38bdf8;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #0f172a;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+  list-style: none;
+  padding: 10px 0;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.dropdown-menu li {
+  text-align: left;
+  padding: 8px 20px;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Styling for the dropdown arrow */
+.dropdown-icon {
+  font-size: 13px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate the arrow on hover */
+.dropdown:hover .dropdown-icon {
+  transform: rotate(180deg);
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column; 
+}
+
+body > * {
+  flex: 1; 
+}
+
+footer {
+  width: 100vw;
+  background-color: #0f172a;
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  margin-top: auto; 
+}
+
+footer ul {
+  list-style: none; 
+  padding: 0; 
+  margin: 0 0 10px 0; 
+  display: flex;
+  justify-content: center; 
+  gap: 20px; 
+  flex-wrap: wrap;
+}
+
+footer li {
+  display: inline; 
+}
+
+footer a {
+  color: #38bdf8;
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+  font-size: 16px;
+}
+
+footer a:hover {
+  color: #00c4ff; 
+}
+
+footer p {
+  font-size: 14px;
+  margin: 10px 0 0; 
+  color: #ccc; 
+}
+
+
+
+
 @keyframes bounce {
   0%,
   80%,
@@ -235,20 +353,31 @@
         <ul class="nav-links">
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact Us</a></li>
-          <li><a href="register">Register</a></li>
-          <li><a href="login">Login</a></li>
-          <li><a href="/recycling_centers">List of Recycling Centres Near you</a></li>
+          <!-- Admin Dropdown -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">Admin <span class="dropdown-icon">▼</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/create_admin">Create Admin</a></li>
+              <li><a href="/admin_login">Admin Login</a></li>
+            </ul>
+          </li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Login</a></li>
+          
+      
           {% if session.username %}
           <li>Welcome, {{ session.username }}!</li>
-          <li><a href="dashboard">Go to Dashboard</a></li>
+          <li><a href="/dashboard">Go to Dashboard</a></li>
           <li><a href="/logout">Logout</a></li>
           {% endif %}
           {% if session.get('is_admin', False) %}
           <li><a href="/admin">Admin Dashboard</a></li>
           {% endif %}
-
+      
+          
         </ul>
       </nav>
+      
       <h1>Smart Recycling System</h1>
       <p>
         Welcome to the Smart Recycling System! To help make recycling easier and more effective,
@@ -299,11 +428,15 @@
       Every small step counts in creating a sustainable future. Reduce, reuse,
       recycle! Together, we can make a difference.
     </div>
-<footer>
-  <li><a href="/create_admin">Create Admin</a></li>
-  <li><a href="/admin_login">Admin Login</a></li>
-
-</footer>
+    <footer>
+      <ul>
+        <li><a href="/recycling_centers">List of Recycling Centres Near You</a></li>
+        <li><a href="/privacy_policy">Privacy Policy</a></li>
+        <li><a href="/terms_of_service">Terms of Service</a></li>
+      </ul>
+      <p>© 2024 Smart Recycling System. All Rights Reserved.</p>
+    </footer>
+    
     <script>
  const fileInput = document.getElementById('file');
 const previewImage = document.getElementById('previewImage');
