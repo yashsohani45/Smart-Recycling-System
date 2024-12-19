@@ -29,37 +29,76 @@
         min-height: 100vh; /* Ensure content is at least as tall as the viewport */
       }
       /* Navigation Bar Styles */
-      nav {
-        position: fixed;
+      .logo {
+        font-family: "Arial", sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #2c3e50;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        padding: 5px;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+      .logo:hover {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #bdc3c7, #ecf0f1);
+      }
+      .logo:active {
+        transform: scale(0.9);
+      }
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-20px);
+        }
+        60% {
+          transform: translateY(-10px);
+        }
+      }
+      .logo.animation {
+        animation: bounce 2s infinite;
+      }
+        /* Navigation Bar */
+        nav {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        background-color: #0f172a;
-        padding: 15px 0;
+        height: 60px;
         z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #0f172a;
+        color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
 
       .nav-links {
+        list-style: none;
         display: flex;
-        justify-content: center;
-        list-style-type: none;
-      }
-
-      .nav-links li {
-        margin: 0 15px;
+        gap: 20px;
       }
 
       .nav-links a {
-        color: white;
         text-decoration: none;
-        font-size: 18px;
-        padding: 8px 15px;
-        border-radius: 4px;
+        color: #fff;
+        transition: color 0.3s;
       }
 
       .nav-links a:hover {
-        background-color: #38bdf8;
-        color: #0f172a;
+        color: #38bdf8;
       }
 
       /* Register Form Styles */
@@ -89,6 +128,7 @@
 
       input[type="text"],
       input[type="password"] {
+        outline: none;
         width: 100%;
         padding: 10px;
         margin-bottom: 20px;
@@ -96,6 +136,11 @@
         border-radius: 4px;
         box-sizing: border-box;
       }
+      input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
 
       button {
         width: 100%;
@@ -159,6 +204,7 @@
   </head>
   <body>
     <nav>
+      <div class="logo">Smart Recycling System</div>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/about">About</a></li>
