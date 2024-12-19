@@ -13,6 +13,7 @@ from functools import wraps
 from flask import abort
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask import session, render_template
 
 # Nominatim API for geocoding
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
@@ -129,12 +130,15 @@ def login():
 
         if user and check_password_hash(user.password, password):
             session['username'] = username
+            session['is_logged_in'] = True
             session['user_id'] = user.id
             flash(f'Welcome, {username}!', 'success')
             return redirect('/')
         else:
             flash('Invalid username or password.', 'error')
             return redirect('/login')
+        
+
 
     return render_template('login.html')
 
@@ -485,6 +489,12 @@ def admin_logout():
     flash('You have been logged out of the admin panel.', 'success')
     return redirect(url_for('admin_login'))
 
+
+#RedirectingToLogin Route
+
+@app.route("/")
+def other_home():
+    return render_template("index.html", isLoggedIn=session.get("username") is not None)
 
 # Templates
 @app.route('/')
