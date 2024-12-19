@@ -13,12 +13,7 @@ from functools import wraps
 from flask import abort
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask import session, render_template
 
-# Nominatim API for geocoding
-NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
-# Overpass API for searching nearby places
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Used for session management
@@ -79,6 +74,7 @@ class Admin(db.Model):
     is_super_admin = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+
 # Home route
 @app.route('/')
 def index():
@@ -137,8 +133,6 @@ def login():
         else:
             flash('Invalid username or password.', 'error')
             return redirect('/login')
-        
-
 
     return render_template('login.html')
 
@@ -247,70 +241,11 @@ def contact():
         email = request.form['email']
         message = request.form['message']
 
-        # For now, simply flash a confirmation
+        
         flash(f'Thank you for contacting us, {name}. We will respond to your message soon!', 'success')
         return redirect('/contact')
 
     return render_template('contact.html')
-
-
-@app.route('/recycling-centers', methods=['GET', 'POST'])
-def recycling_centers():
-    if request.method == 'POST':
-        location = request.form['location']
-        if not location:
-            flash("Please enter a location.", "error")
-            return redirect('/recycling_centers')
-
-        # Geocode the location using Nominatim
-        geocode_params = {
-            'q': location,
-            'format': 'json',
-            'limit': 1,
-        }
-        geocode_response = requests.get(
-            NOMINATIM_URL,
-            params=geocode_params,
-            headers={'User-Agent': 'SmartRecyclingApp/1.0'}
-        )
-        geocode_data = geocode_response.json()
-
-        if not geocode_data:
-            flash("Unable to find the location. Please try again.", "error")
-            return redirect('/recycling_centers')
-
-        lat = geocode_data[0]['lat']
-        lon = geocode_data[0]['lon']
-
-        # Find recycling centers using Overpass API
-        overpass_query = f"""
-        [out:json];
-        node["amenity"="recycling"](around:5000,{lat},{lon});
-        out body;
-        """
-        overpass_response = requests.post(
-            OVERPASS_URL,
-            data={'data': overpass_query},
-            headers={'User-Agent': 'SmartRecyclingApp/1.0'}
-        )
-        overpass_data = overpass_response.json()
-
-        # Extract results
-        centers = []
-        for element in overpass_data.get('elements', []):
-            name = element.get('tags', {}).get('name', 'Unnamed Recycling Center')
-            lat = element['lat']
-            lon = element['lon']
-            centers.append({'name': name, 'lat': lat, 'lon': lon})
-
-        if not centers:
-            flash("No recycling centers found nearby.", "info")
-            return redirect('/recycling_centers')
-
-        # Return results
-        return render_template('recycling_centers.html', centers=centers, location=location)
-
-    return render_template('recycling_centers.html')
 
 
     # Admin authentication decorator
@@ -489,12 +424,6 @@ def admin_logout():
     flash('You have been logged out of the admin panel.', 'success')
     return redirect(url_for('admin_login'))
 
-
-#RedirectingToLogin Route
-
-@app.route("/")
-def other_home():
-    return render_template("index.html", isLoggedIn=session.get("username") is not None)
 
 # Templates
 @app.route('/')
