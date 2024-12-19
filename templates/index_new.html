@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>Smart Recycling System</title>
     <style>
       * {
@@ -21,6 +22,45 @@
         padding: 20px;
         padding-top: 60px;
         background: linear-gradient(to bottom right, #38bdf8, #0f172a);
+      }
+      .logo {
+        font-family: "Arial", sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #2c3e50;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        padding: 5px;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+        cursor: pointer;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+      .logo:hover {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #bdc3c7, #ecf0f1);
+      }
+      .logo:active {
+        transform: scale(0.9);
+      }
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-20px);
+        }
+        60% {
+          transform: translateY(-10px);
+        }
+      }
+      .logo.animation {
+        animation: bounce 2s infinite;
       }
       nav {
         position: absolute;
@@ -192,158 +232,154 @@
         line-height: 1.8;
       }
       .loading {
-  display: none; 
-  margin-top: 20px;
-  text-align: center;
-}
+        display: none;
+        margin-top: 20px;
+        text-align: center;
+      }
 
-.loading div {
-  width: 15px;
-  height: 15px;
-  background-color: #007bff;
-  border-radius: 50%;
-  display: inline-block;
-  animation: bounce 1.4s infinite ease-in-out both;
-  margin: 0 5px;
-}
+      .loading div {
+        width: 15px;
+        height: 15px;
+        background-color: #007bff;
+        border-radius: 50%;
+        display: inline-block;
+        animation: bounce 1.4s infinite ease-in-out both;
+        margin: 0 5px;
+      }
 
-.loading div:nth-child(2) {
-  animation-delay: -0.32s;
-}
+      .loading div:nth-child(2) {
+        animation-delay: -0.32s;
+      }
 
-.loading div:nth-child(3) {
-  animation-delay: -0.16s;
-}
+      .loading div:nth-child(3) {
+        animation-delay: -0.16s;
+      }
 
-/* Dropdown Styling */
-.dropdown {
-  position: relative;
-}
+      /* Dropdown Styling */
+      .dropdown {
+        position: relative;
+      }
 
-.dropdown-toggle {
-  cursor: pointer;
-  text-decoration: none;
-  color: #fff;
-  padding: 5px 10px;
-  transition: color 0.3s;
-}
+      .dropdown-toggle {
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+        padding: 5px 10px;
+        transition: color 0.3s;
+      }
 
-.dropdown-toggle:hover {
-  color: #38bdf8;
-}
+      .dropdown-toggle:hover {
+        color: #38bdf8;
+      }
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #0f172a;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: none;
-  list-style: none;
-  padding: 10px 0;
-  z-index: 1000;
-  min-width: 150px;
-}
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #0f172a;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none;
+        list-style: none;
+        padding: 10px 0;
+        z-index: 1000;
+        min-width: 150px;
+      }
 
-.dropdown-menu li {
-  text-align: left;
-  padding: 8px 20px;
-}
+      .dropdown-menu li {
+        text-align: left;
+        padding: 8px 20px;
+      }
 
-.dropdown-menu li a {
-  text-decoration: none;
-  color: #fff;
-  display: block;
-  transition: background-color 0.3s, color 0.3s;
-}
+      .dropdown-menu li a {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        transition: background-color 0.3s, color 0.3s;
+      }
 
-.dropdown-menu li a:hover {
-  background-color: #0056b3;
-  color: #fff;
-}
+      .dropdown-menu li a:hover {
+        background-color: #0056b3;
+        color: #fff;
+      }
 
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
+      /* Styling for the dropdown arrow */
+      .dropdown-icon {
+        font-size: 13px;
+        color: #fff;
+        transition: transform 0.3s ease;
+      }
 
-/* Styling for the dropdown arrow */
-.dropdown-icon {
-  font-size: 13px;
-  color: #fff;
-  transition: transform 0.3s ease;
-}
+      /* Rotate the arrow on hover */
+      .dropdown:hover .dropdown-icon {
+        transform: rotate(180deg);
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
 
-/* Rotate the arrow on hover */
-.dropdown:hover .dropdown-icon {
-  transform: rotate(180deg);
-}
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column; 
-}
+      body > * {
+        flex: 1;
+      }
 
-body > * {
-  flex: 1; 
-}
+      footer {
+        width: 100vw;
+        background-color: #0f172a;
+        color: #fff;
+        text-align: center;
+        padding: 20px 10px;
+        margin-top: auto;
+      }
 
-footer {
-  width: 100vw;
-  background-color: #0f172a;
-  color: #fff;
-  text-align: center;
-  padding: 20px 10px;
-  margin-top: auto; 
-}
+      footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
 
-footer ul {
-  list-style: none; 
-  padding: 0; 
-  margin: 0 0 10px 0; 
-  display: flex;
-  justify-content: center; 
-  gap: 20px; 
-  flex-wrap: wrap;
-}
+      footer li {
+        display: inline;
+      }
 
-footer li {
-  display: inline; 
-}
+      footer a {
+        color: #38bdf8;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 16px;
+      }
 
-footer a {
-  color: #38bdf8;
-  text-decoration: none; 
-  transition: color 0.3s ease; 
-  font-size: 16px;
-}
+      footer a:hover {
+        color: #00c4ff;
+      }
 
-footer a:hover {
-  color: #00c4ff; 
-}
+      footer p {
+        font-size: 14px;
+        margin: 10px 0 0;
+        color: #ccc;
+      }
 
-footer p {
-  font-size: 14px;
-  margin: 10px 0 0; 
-  color: #ccc; 
-}
-
-
-
-
-@keyframes bounce {
-  0%,
-  80%,
-  100% {
-    transform: scale(0);
-  }
-  40% {
-    transform: scale(1);
-  }
-}
-
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
     </style>
   </head>
   <body>
@@ -355,7 +391,9 @@ footer p {
           <li><a href="/contact">Contact Us</a></li>
           <!-- Admin Dropdown -->
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle">Admin <span class="dropdown-icon">▼</span></a>
+            <a href="#" class="dropdown-toggle"
+              >Admin <span class="dropdown-icon">▼</span></a
+            >
             <ul class="dropdown-menu">
               <li><a href="/create_admin">Create Admin</a></li>
               <li><a href="/admin_login">Admin Login</a></li>
@@ -363,66 +401,101 @@ footer p {
           </li>
           <li><a href="/register">Register</a></li>
           <li><a href="/login">Login</a></li>
-          
-      
+
           {% if session.username %}
           <li>Welcome, {{ session.username }}!</li>
           <li><a href="/dashboard">Go to Dashboard</a></li>
           <li><a href="/logout">Logout</a></li>
-          {% endif %}
-          {% if session.get('is_admin', False) %}
+          {% endif %} {% if session.get('is_admin', False) %}
           <li><a href="/admin">Admin Dashboard</a></li>
           {% endif %}
-      
-          
         </ul>
       </nav>
-      
+
       <h1>Smart Recycling System</h1>
       <p>
-        Welcome to the Smart Recycling System! To help make recycling easier and more effective,
-        simply upload an image of an item you'd like to recycle. Our system will predict its recyclability 
-        and tell you which bin to place it in. Let's make recycling smarter together! 
+        Welcome to the Smart Recycling System! To help make recycling easier and
+        more effective, simply upload an image of an item you'd like to recycle.
+        Our system will predict its recyclability and tell you which bin to
+        place it in. Let's make recycling smarter together!
       </p>
     </header>
 
     <div class="container">
-        
-        <form id="uploadForm" action="/predict" method="POST" enctype="multipart/form-data">
-            <label for="file">Choose an Image</label>
-            <input type="file" name="file" id="file" accept="image/*" required>
-            <button type="submit">Predict</button>
-        </form>
+      <form
+  id="uploadForm"
+  action="/predict"
+  method="POST"
+  enctype="multipart/form-data"
+  data-isloggedin="{{ isLoggedIn }}"
+>
+  <label for="file">Choose an Image</label>
+  <input type="file" name="file" id="file" accept="image/*" required />
+  <button type="submit" id="uploadButton">Predict</button>
+</form>
+<div id="message-container" style="display: none;"></div>
 
-        <div class="preview" id="preview" style="display: {% if prediction %}none{% else %}block{% endif %};">
-          <h2>Image Preview:</h2>
-          <img id="previewImage" src="#" alt="Image Preview" style="display: none;" />
-        </div>
-        
-        <div class="result" id="result" style="display: {% if prediction %}block{% else %}none{% endif %};">
-          <h2 style="text-align: center;">Prediction Result:</h2>
-          <div class="prediction-output" style="text-align: center; margin-top: 20px;">
-            {% if uploaded_image %}
-            <img src="{{ uploaded_image }}" alt="Uploaded Image" style="max-width: 100%; border-radius: 8px; margin-bottom: 20px;" />
-            {% endif %}
-            <p><strong>Class:</strong> <span id="class">{{ prediction.class if prediction else '' }}</span></p>
-            <p><strong>Confidence:</strong> <span id="confidence">{{ prediction.confidence if prediction else '' }}</span>%</p>
-            <p><strong>Recyclability:</strong> <span id="recyclability">{{ prediction.recyclability if prediction else '' }}</span></p>
-            <p><strong>Bin:</strong> <span id="bin">{{ prediction.bin if prediction else '' }}</span></p>
-          </div>
-        </div>
-        
-        
-        
-      
 
-        {% if error %}
-        <div class="error">
-            <p>Error: {{ error }}</p>
+      <div
+        class="preview"
+        id="preview"
+        style="display: {% if prediction %}none{% else %}block{% endif %};"
+      >
+        <h2>Image Preview:</h2>
+        <img
+          id="previewImage"
+          src="#"
+          alt="Image Preview"
+          style="display: none"
+        />
+      </div>
+
+      <div
+        class="result"
+        id="result"
+        style="display: {% if prediction %}block{% else %}none{% endif %};"
+      >
+        <h2 style="text-align: center">Prediction Result:</h2>
+        <div
+          class="prediction-output"
+          style="text-align: center; margin-top: 20px"
+        >
+          {% if uploaded_image %}
+          <img
+            src="{{ uploaded_image }}"
+            alt="Uploaded Image"
+            style="max-width: 100%; border-radius: 8px; margin-bottom: 20px"
+          />
+          {% endif %}
+          <p>
+            <strong>Class:</strong>
+            <span id="class">{{ prediction.class if prediction else '' }}</span>
+          </p>
+          <p>
+            <strong>Confidence:</strong>
+            <span id="confidence"
+              >{{ prediction.confidence if prediction else '' }}</span
+            >%
+          </p>
+          <p>
+            <strong>Recyclability:</strong>
+            <span id="recyclability"
+              >{{ prediction.recyclability if prediction else '' }}</span
+            >
+          </p>
+          <p>
+            <strong>Bin:</strong>
+            <span id="bin">{{ prediction.bin if prediction else '' }}</span>
+          </p>
         </div>
-        {% endif %}
+      </div>
+
+      {% if error %}
+      <div class="error">
+        <p>Error: {{ error }}</p>
+      </div>
+      {% endif %}
     </div>
-
 
     <div class="awareness">
       Every small step counts in creating a sustainable future. Reduce, reuse,
@@ -430,45 +503,60 @@ footer p {
     </div>
     <footer>
       <ul>
-        <li><a href="/recycling_centers">List of Recycling Centres Near You</a></li>
+        <li>
+          <a href="/recycling_centers">List of Recycling Centres Near You</a>
+        </li>
         <li><a href="/privacy_policy">Privacy Policy</a></li>
         <li><a href="/terms_of_service">Terms of Service</a></li>
       </ul>
       <p>© 2024 Smart Recycling System. All Rights Reserved.</p>
     </footer>
-    
+
     <script>
- const fileInput = document.getElementById('file');
-const previewImage = document.getElementById('previewImage');
-const previewContainer = document.getElementById('preview');
-const resultContainer = document.getElementById('result');
+       // Pass the session variable from Flask into JavaScript
+    const isLoggedIn = {{ session.get('is_logged_in', False) | tojson }};
+    
+    const fileInput = document.getElementById('file');
+    const previewImage = document.getElementById('previewImage');
+    const previewContainer = document.getElementById('preview');
+    const resultContainer = document.getElementById('result');
+    const uploadForm = document.getElementById("uploadForm");
 
-// Display uploaded image as a preview
-fileInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      previewImage.src = event.target.result;
-      previewImage.style.display = 'block'; // Show the preview image
-      previewContainer.style.display = 'block'; // Show the preview container
-    };
-    reader.readAsDataURL(file);
-  }
+    // Prevent image selection if user is not logged in
+    fileInput.addEventListener("click", (e) => {  
+        if (!isLoggedIn) {
+            e.preventDefault(); // Prevent opening the file dialog
+            alert("Please Log in to upload image");
+            window.location.href = "/login"; // Redirect to login page
+            // Redirect to login page after showing message
+        }
+    });
 
-  // Hide results when a new image is selected
-  resultContainer.style.display = 'none';
-});
+      // Display uploaded image as a preview
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            previewImage.src = event.target.result;
+            previewImage.style.display = 'block'; // Show the preview image
+            previewContainer.style.display = 'block'; // Show the preview container
+          };
+          reader.readAsDataURL(file);
+        }
+
+        // Hide results when a new image is selected
+        resultContainer.style.display = 'none';
+      });
 
 
-        // Show results after submission
-        {% if prediction %}
-        document.getElementById('class').innerText = "{{ prediction.class }}";
-        document.getElementById('confidence').innerText = "{{ prediction.confidence }}";
-        document.getElementById('recyclability').innerText = "{{ prediction.recyclability }}";
-        resultContainer.classList.add('active');
-        {% endif %}
+              // Show results after submission
+              {% if prediction %}
+              document.getElementById('class').innerText = "{{ prediction.class }}";
+              document.getElementById('confidence').innerText = "{{ prediction.confidence }}";
+              document.getElementById('recyclability').innerText = "{{ prediction.recyclability }}";
+              resultContainer.classList.add('active');
+              {% endif %}
     </script>
-
   </body>
 </html>
